@@ -4,31 +4,32 @@ public class ButtonRythm {
 	int id;
 	boolean state;
 	String image;
-	public ButtonRythm(int id, boolean state, String image) {
+	public ButtonRythm(int id) {
 		super();
 		this.id = id;
-		this.state = state;
-		this.image = image;
+		this.state = false;
+		this.image = "res/img/button-png";
 	}
+	
 	public int getId() {
 		return id;
 	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public boolean isState() {
+	
+	public boolean getState() {
 		return state;
 	}
-	public void setState(boolean state) {
-		this.state = state;
-	}
+	
 	public String getImage() {
 		return image;
 	}
-	public void setImage(String image) {
-		this.image = image;
+	
+	public void enable() {
+		state = true;
+		image = "res/img/button-green.png";
 	}
 	
-	
-
+	public void disable() {
+		state = false;
+		image = "res/img/button-red.png";
+	}
 }
