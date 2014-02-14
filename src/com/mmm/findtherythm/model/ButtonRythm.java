@@ -8,7 +8,7 @@ public class ButtonRythm {
 		super();
 		this.id = id;
 		this.state = false;
-		this.image = "res/img/button-png";
+		this.image = "img/button-png";
 	}
 	
 	public int getId() {
@@ -25,11 +25,11 @@ public class ButtonRythm {
 	
 	public void enable() {
 		state = true;
-		image = "res/img/button-green.png";
+		image = "img/button-green.png";
 	}
 	
 	public void disable() {
 		state = false;
-		image = "res/img/button-red.png";
+		image = "img/button-red.png";
 	}
 }
