@@ -28,6 +28,7 @@ public class Model implements Observable{
 		this.buttonRythmList.add(buttonRythm3);
 		this.buttonRythmList.add(buttonRythm4);
 		this.buttonRythmList.add(buttonRythm5);
+		activateButtonRandomly(0);
 		this.score = 0;
 		this.graphic = new Graphic();
 		this.sound = new Sound();
@@ -55,7 +56,7 @@ public class Model implements Observable{
 		return sound;
 	}
 	
-	public void setFalseMoveImage() {
+	private void setFalseMoveImage() {
 		graphic.setFalseImage();
 		notifyObserver();
 	}
@@ -64,17 +65,20 @@ public class Model implements Observable{
 		graphic.setBackgroundImage();
 	}
 	
-	public void nextButton() {
+	private void nextButton() {
 		int bouttonActiveId = 0;
-		int rand = 0;
 		for(ButtonRythm buttonRythm : buttonRythmList) {
 			if(buttonRythm.getState())
 				bouttonActiveId = buttonRythm.getId();
 		}
-
+		activateButtonRandomly(bouttonActiveId);	
+	}
+	
+	private void activateButtonRandomly(int id) {
+		int rand = 0;
 		do {
 			rand = (int) (Math.random() * 5) + 1;
-		}while(rand == bouttonActiveId);
+		}while(rand == id);
 		
 		for(ButtonRythm buttonRythm : buttonRythmList) {
 			if(buttonRythm.getId() == rand)
@@ -84,11 +88,11 @@ public class Model implements Observable{
 		}
 	}
 	
-	public void addScore() {
+	private void addScore() {
 		score = score + 100;
 	}
 	
-	public void deductScore() {
+	private void deductScore() {
 		score = score - 100;
 	}
 	
