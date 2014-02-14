@@ -3,13 +3,10 @@ package com.mmm.findtherythm;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
-<<<<<<< HEAD
-import android.widget.TextView;
-=======
 import android.view.View;
 import android.widget.Button;
 import android.view.View.OnClickListener;
->>>>>>> b89ed0821ae383d5a34a7b6a741d1f1b222db07f
+
 
 public class IndexActivity extends Activity {
 
@@ -17,11 +14,7 @@ public class IndexActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_index);
-<<<<<<< HEAD
-		TextView tv = new TextView(this);
-        tv.setText("Hello, Android oui Android");
-		setContentView(tv);
-=======
+
 		
 		// Component declaration
 		Button buttonJouer = (Button) findViewById(R.id.buttonJouer);
@@ -31,7 +24,7 @@ public class IndexActivity extends Activity {
 		buttonJouer.setOnClickListener(buttonJouerHandler);
 		buttonScore.setOnClickListener(buttonScoreHandler);
 		
->>>>>>> b89ed0821ae383d5a34a7b6a741d1f1b222db07f
+
 	}
 	
 	OnClickListener buttonJouerHandler = new OnClickListener() {
