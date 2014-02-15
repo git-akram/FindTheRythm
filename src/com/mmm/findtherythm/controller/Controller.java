@@ -21,5 +21,10 @@ public class Controller {
 	public void terminerPartieAction() {
 		model.quitPartie();
 	}
+
+	public void startGameAction() {
+		
+		model.startPartie();
+	}
 		
 }

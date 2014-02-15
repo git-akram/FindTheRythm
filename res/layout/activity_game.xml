@@ -9,7 +9,7 @@
     tools:context=".GameActivity" >
 
     <ImageView
-        android:id="@+id/ImageView01"
+        android:id="@+id/push1"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -20,11 +20,11 @@
         android:src="@drawable/button_red" />
 
     <ImageView
-        android:id="@+id/ImageView02"
+        android:id="@+id/push2"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/ImageView01"
+        android:layout_alignTop="@+id/push1"
         android:layout_marginRight="23dp"
         android:layout_marginTop="35dp"
         android:adjustViewBounds="true"
@@ -33,33 +33,33 @@
         android:src="@drawable/button_red" />
 
     <ImageView
-        android:id="@+id/ImageView04"
+        android:id="@+id/push5"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="58dp"
-        android:layout_toRightOf="@+id/ImageView03"
+        android:layout_toRightOf="@+id/push3"
         android:adjustViewBounds="true"
         android:baselineAlignBottom="false"
         android:cropToPadding="false"
         android:src="@drawable/button_red" />
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/push4"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/ImageView04"
-        android:layout_alignLeft="@+id/ImageView01"
+        android:layout_above="@+id/push5"
+        android:layout_alignLeft="@+id/push1"
         android:adjustViewBounds="true"
         android:baselineAlignBottom="false"
         android:cropToPadding="false"
         android:src="@drawable/button_red" />
 
     <ImageView
-        android:id="@+id/ImageView03"
+        android:id="@+id/push3"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/imageView1"
+        android:layout_above="@+id/push4"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="48dp"
         android:adjustViewBounds="true"
