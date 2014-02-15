@@ -10,12 +10,16 @@ public class Controller {
 		this.model = model;
 	}
 	
-	public void clickSuccess() {
+	public void clickSuccessAction() {
 		model.nextMove(true);
 	}
 	
-	public void clickFail() {
+	public void clickFailAction() {
 		model.nextMove(false);
+	}
+	
+	public void terminerPartieAction() {
+		model.quitPartie();
 	}
 		
 }

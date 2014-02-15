@@ -27,7 +27,7 @@
         android:layout_below="@+id/buttonJouer"
         android:layout_marginTop="44dp"
         android:layout_toLeftOf="@+id/textViewMenu"
-        android:text="@string/Score" />
+        android:text="@string/Pause" />
 
     <TextView
         android:id="@+id/textViewMenu"

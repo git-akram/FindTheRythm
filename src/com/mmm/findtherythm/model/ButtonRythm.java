@@ -1,14 +1,17 @@
 package com.mmm.findtherythm.model;
 
+import com.mmm.findtherythm.R;
+
+import android.graphics.drawable.Drawable;
+import android.webkit.WebView.FindListener;
+
 public class ButtonRythm {
 	int id;
-	boolean state;
-	String image;
+	boolean state; 
 	public ButtonRythm(int id) {
 		super();
 		this.id = id;
 		this.state = false;
-		this.image = "img/button-png";
 	}
 	
 	public int getId() {
@@ -18,18 +21,12 @@ public class ButtonRythm {
 	public boolean getState() {
 		return state;
 	}
-	
-	public String getImage() {
-		return image;
-	}
-	
+
 	public void enable() {
 		state = true;
-		image = "img/button-green.png";
 	}
 	
 	public void disable() {
 		state = false;
-		image = "img/button-red.png";
 	}
 }

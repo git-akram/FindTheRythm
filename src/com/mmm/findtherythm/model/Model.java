@@ -121,6 +121,6 @@ public class Model implements Observable{
 	@Override
 	public void notifyObserver() {
 		for(Observer obs : listObserver)
-		      obs.update();	
+		      obs.update(this);
 	}
 }

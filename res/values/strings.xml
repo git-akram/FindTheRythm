@@ -9,5 +9,6 @@
     <string name="Score">Score</string>
     <string name="Index_title">Menu</string>
     <string name="Score_title">Best Scores</string>
+    <string name="Pause">Pause</string>
 
 </resources>
