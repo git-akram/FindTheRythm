@@ -15,35 +15,35 @@ public class IndexActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_index);
 
-		
+
 		// Component declaration
 		Button buttonJouer = (Button) findViewById(R.id.buttonJouer);
 		Button buttonScore = (Button) findViewById(R.id.buttonScore);
-		
+
 		// Handler declaration
 		buttonJouer.setOnClickListener(buttonJouerHandler);
 		buttonScore.setOnClickListener(buttonScoreHandler);
-		
+
 
 	}
-	
+
 	OnClickListener buttonJouerHandler = new OnClickListener() {
 
 		@Override
 		public void onClick(View v) {
 			setContentView(R.layout.activity_game);	
 		}
-		
+
 	};
-	
+
 	OnClickListener buttonScoreHandler = new OnClickListener() {
 
 		@Override
 		public void onClick(View v) {
 			// TODO Redirect to Score Layout
-			
+
 		}
-		
+
 	};
 
 	@Override
