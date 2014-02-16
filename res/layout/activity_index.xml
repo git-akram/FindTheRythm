@@ -41,4 +41,13 @@
         android:text="Menu"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/buttonJouer"
+        android:layout_marginTop="26dp"
+        android:layout_toRightOf="@+id/textViewMenu"
+        android:text="Button" />
+
 </RelativeLayout>
