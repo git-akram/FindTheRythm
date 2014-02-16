@@ -13,10 +13,11 @@
 
     
     <ImageView
+
         android:id="@+id/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-    
+
 	<ImageView
         android:id="@+id/push1"
         android:layout_width="50dp"
@@ -29,6 +30,7 @@
         android:src="@drawable/button_red" />
 
     <ImageView
+
         android:id="@+id/push2"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
@@ -75,6 +77,18 @@
         android:baselineAlignBottom="false"
         android:cropToPadding="false"
         android:src="@drawable/button_red" />
+
+
+
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="23dp"
+        android:layout_toRightOf="@+id/push5"
+        android:text="TextView" />
 
 
 </RelativeLayout>

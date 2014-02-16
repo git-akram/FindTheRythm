@@ -1,16 +1,18 @@
 package com.mmm.findtherythm;
 
-
-
-
-
 import java.util.ArrayList;
 import java.util.Timer;
+import java.util.TimerTask;
+import com.mmm.findtherythm.controller.Controller;
+import com.mmm.findtherythm.model.ButtonRythm;
+import com.mmm.findtherythm.model.Model;
+import com.mmm.findtherythm.model.Observer;
+import android.os.Bundle;
+import android.os.Handler;
 import android.app.Activity;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -18,10 +20,7 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.mmm.findtherythm.controller.Controller;
-import com.mmm.findtherythm.model.ButtonRythm;
-import com.mmm.findtherythm.model.Model;
-import com.mmm.findtherythm.model.Observer;
+
 
 public class GameActivity extends Activity implements Observer{
 	private static final String TAG = "GameActivity";
@@ -33,7 +32,23 @@ public class GameActivity extends Activity implements Observer{
 	ArrayList<ImageView> push;
 	int score;
 	Controller controlleur;
-	Timer timeout1;
+	int timeout1=0;
+	Timer T;
+	ButtonRythm enable_button;
+	private Handler myHandler;
+	private Runnable myRunnable = new Runnable() {
+	@Override
+	public void run() {
+	    // Code à éxécuter de façon périodique
+		controlleur.clickFailAction();
+	    myHandler.postDelayed(this,2000);
+	    
+	    }
+	};
+	
+	
+	
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,15 +88,19 @@ public class GameActivity extends Activity implements Observer{
 		//affectation des listeners
 		for(int i=0; i<push.size(); i++)
 			push.get(i).setOnClickListener(pushBouton);
-		//Initialisation du score 
-		//score = 0;
-		
-		//création des timeout
-		//timeout1 = new Timer();
 		controlleur.startGameAction();
+		
+		myHandler = new Handler();
+	    myHandler.postDelayed(myRunnable,2000); 
         
 	
 		}
+	
+	public void onPause() {
+	    super.onPause();
+	    if(myHandler != null)
+	        myHandler.removeCallbacks(myRunnable); // On arrete le callback
+	}
 		
 	public void oppaDance(){
 		final RelativeLayout rl = (RelativeLayout) findViewById(R.id.layoutGame);
@@ -111,6 +130,7 @@ public class GameActivity extends Activity implements Observer{
 		mMediaPlayer2.setLooping(true);
 		mMediaPlayer.setVolume(20, 20);
 	}
+
 		
 	@Override
 	public void onWindowFocusChanged (boolean hasFocus) {
@@ -123,16 +143,35 @@ public class GameActivity extends Activity implements Observer{
 	OnClickListener pushBouton = new OnClickListener() {
 	
 		@Override
-		public void onClick(View push) {
+		public void onClick(View boutonPushed) {
 			// TODO Auto-generated method stub
 			Log.i(TAG, "onClick button");
-			controlleur.clickSuccessAction();
-		}
+			for(int i=0; i< push.size(); i++){
+				//Je cherche la correpondance du bouton cliqué dans la liste des views
+				if(boutonPushed.getId() == push.get(i).getId())
+				{
+					//si on clique sur le bon bouton
+					if(i == enable_button.getId()){
+							controlleur.clickSuccessAction();
+						}
+					else
+							controlleur.clickFailAction();
+						
+					}
+				myHandler.postDelayed(myRunnable,2000);
+				break;
+			
+				}
+				
+			}
+			
+					
+		
 
 		
 	};
 	
-	
+
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -170,13 +209,15 @@ public class GameActivity extends Activity implements Observer{
 			Log.i(TAG, "push("+i+") = "+listBouton.get(i).getState());
 			if(listBouton.get(i).getState() == true){
 				push.get(i).setImageResource(R.drawable.button_green);
-				autochange(push.get(i));}
-				//push.get(i).setBackgroundResource(R.drawable.button_green);
+				enable_button = listBouton.get(i);
+			}
 			else
 				push.get(i).setImageResource(R.drawable.button_red);
 				//push.get(i).setBackgroundResource(R.drawable.button_red);
+			
 		}
 		score = model.getScore();
+	
 	}
 	
 	public void autochange(final ImageView im){
