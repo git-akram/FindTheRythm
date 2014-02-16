@@ -6,6 +6,8 @@ package com.mmm.findtherythm;
 
 import java.util.ArrayList;
 import java.util.Timer;
+import java.util.TimerTask;
+
 import com.mmm.findtherythm.controller.Controller;
 import com.mmm.findtherythm.model.ButtonRythm;
 import com.mmm.findtherythm.model.Model;
@@ -25,7 +27,9 @@ public class GameActivity extends Activity implements Observer{
 	ArrayList<ImageView> push;
 	int score;
 	Controller controlleur;
-	Timer timeout1;
+	int timeout1=0;
+	Timer T;
+	ButtonRythm enable_button;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		Log.i(TAG, "start GameActivity");
@@ -57,25 +61,81 @@ public class GameActivity extends Activity implements Observer{
 			push.get(i).setOnClickListener(pushBouton);
 		//Initialisation du score 
 		//score = 0;
+		T=new Timer();
+		T.schedule(new TimerTask() {         
+		        @Override
+		        public void run() {
+		            runOnUiThread(new Runnable()
+		            {
+		                @Override
+		                public void run()
+		                {
+		                    //myTextView.setText("count="+count);
+		                    timeout1++;                
+		                }
+		            });
+		        }
+		    }, 300000);
 		
-		//création des timeout
-		//timeout1 = new Timer();
-		controlleur.startGameAction();
+
 		
 	}
 
 	OnClickListener pushBouton = new OnClickListener() {
 	
 		@Override
-		public void onClick(View push) {
+		public void onClick(View boutonPushed) {
 			// TODO Auto-generated method stub
 			Log.i(TAG, "onClick button");
-			controlleur.clickSuccessAction();
+			for(int i=0; i< push.size(); i++){
+				//Je cherche la correpondance du bouton cliqué dans la liste des views
+				if(boutonPushed.getId() == push.get(i).getId())
+				{
+					//si on clique sur le bon bouton
+					if(i == enable_button.getId()){
+						if(timeout1 < 300000){
+							controlleur.clickSuccessAction();
+							T.cancel();
+							timeout1 = 0;
+						}
+						else
+							controlleur.clickFailAction();
+						
+					}
+						
+					//si on ne clique pas sur le bon bouton
+					else
+						controlleur.clickFailAction();
+					break;
+				}
+				
+			}
+			
+					
 		}
 		
 	};
 	
-	
+	public void Jouer()
+	{
+		//création des timeout
+		/*Timer T=new Timer();
+		T.schedule(new TimerTask() {         
+		        @Override
+		        public void run() {
+		            runOnUiThread(new Runnable()
+		            {
+		                @Override
+		                public void run()
+		                {
+		                    //myTextView.setText("count="+count);
+		                    timeout1++;                
+		                }
+		            });
+		        }
+		    }, 300000);*/
+		
+	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -107,14 +167,31 @@ public class GameActivity extends Activity implements Observer{
 		ArrayList<ButtonRythm> listBouton= model.getButtonRythm();
 		for(int i=0; i<listBouton.size(); i++){
 			Log.i(TAG, "push("+i+") = "+listBouton.get(i).getState());
-			if(listBouton.get(i).getState() == true)
+			if(listBouton.get(i).getState() == true){
 				push.get(i).setImageResource(R.drawable.button_green);
+				enable_button = listBouton.get(i);
 				//push.get(i).setBackgroundResource(R.drawable.button_green);
+			}
 			else
 				push.get(i).setImageResource(R.drawable.button_red);
 				//push.get(i).setBackgroundResource(R.drawable.button_red);
+			
 		}
 		score = model.getScore();
+		T.schedule(new TimerTask() {         
+	        @Override
+	        public void run() {
+	            runOnUiThread(new Runnable()
+	            {
+	                @Override
+	                public void run()
+	                {
+	                    //myTextView.setText("count="+count);
+	                    timeout1++;                
+	                }
+	            });
+	        }
+	    }, 300000);
 	}
 
 }

@@ -10,17 +10,6 @@
     tools:context=".GameActivity" >
 
     <ImageView
-        android:id="@+id/push1"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:adjustViewBounds="true"
-        android:baselineAlignBottom="false"
-        android:cropToPadding="false"
-        android:src="@drawable/button_red" />
-
-    <ImageView
         android:id="@+id/push2"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
@@ -67,5 +56,27 @@
         android:baselineAlignBottom="false"
         android:cropToPadding="false"
         android:src="@drawable/button_red" />
+
+    <ImageView
+        android:id="@+id/push1"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/push3"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="40dp"
+        android:layout_marginLeft="25dp"
+        android:adjustViewBounds="true"
+        android:baselineAlignBottom="false"
+        android:cropToPadding="false"
+        android:src="@drawable/button_red" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="23dp"
+        android:layout_toRightOf="@+id/push5"
+        android:text="TextView" />
 
 </RelativeLayout>
