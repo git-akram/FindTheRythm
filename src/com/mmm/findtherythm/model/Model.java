@@ -68,12 +68,20 @@ public class Model implements Observable{
 	}
 	
 	private void nextButton() {
+		Log.i(TAG, "nextButton");
+		Log.i(TAG, "nextButton");
+		
 		int bouttonActiveId = 0;
-		for(ButtonRythm buttonRythm : buttonRythmList) {
-			if(buttonRythm.getState())
-				bouttonActiveId = buttonRythm.getId();
+		Log.i(TAG, "nextButton");
+		
+		for(int i=0; i<buttonRythmList.size(); i++) {
+			Log.i(TAG, "traitement nextButton"+i);
+			if(buttonRythmList.get(i).getState())
+				bouttonActiveId = buttonRythmList.get(i).getId();
 		}
+		Log.i(TAG, "Pass traitement nextButton");
 		activateButtonRandomly(bouttonActiveId);	
+		Log.i(TAG, "End of nextButton");
 	}
 	
 	private void activateButtonRandomly(int id) {
@@ -108,6 +116,7 @@ public class Model implements Observable{
 			setFalseMoveImage();
 		}
 		nextButton();
+		
 		notifyObserver();
 	}
 
@@ -123,8 +132,12 @@ public class Model implements Observable{
 
 	@Override
 	public void notifyObserver() {
-		for(Observer obs : listObserver)
-		      obs.update(this);
+		Log.i(TAG, "Start of listObserver notify");
+		for(int i=0; i<listObserver.size(); i++){
+			Log.i(TAG, "notify observer"+i);
+			listObserver.get(i).update(this);
+		}
+		      
 		Log.i(TAG, "End of listObserver notify");
 	}
 }

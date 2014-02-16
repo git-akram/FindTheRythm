@@ -51,7 +51,10 @@ public class GameActivity extends Activity implements Observer{
 		
 		//Intialisation du controlleur
 		Log.i(TAG, "ajout de l'observateur");
-		Factory.getInstance().getModel().addObserver(this);
+		Model m = Factory.getInstance().getModel();
+		m.addObserver(this);
+		
+		
 		Log.i(TAG, "ajout du controlleur");
 		controlleur = Factory.getInstance().getController();
 		if(controlleur == null)
@@ -64,7 +67,7 @@ public class GameActivity extends Activity implements Observer{
 		
 		//création des timeout
 		//timeout1 = new Timer();
-		//Factory.getInstance().getController().startGameAction();
+		controlleur.startGameAction();
 		
 	}
 
@@ -96,6 +99,7 @@ public class GameActivity extends Activity implements Observer{
 		//si le bouton est true faire l'image success
 		//si le bouton est false faire l'image failed
 		// recharger le score
+		Log.i(TAG, "update");
 		ArrayList<ButtonRythm> listBouton= model.getButtonRythm();
 			for(int i=0; i<listBouton.size(); i++){
 				if(listBouton.get(1).getState() == true)
