@@ -79,7 +79,7 @@ public class Model implements Observable{
 	private void activateButtonRandomly(int id) {
 		int rand = 0;
 		do {
-			rand = (int) (Math.random() * 5) + 1;
+			rand = (int) (Math.random() * 5);
 		}while(rand == id);
 		
 		for(ButtonRythm buttonRythm : buttonRythmList) {

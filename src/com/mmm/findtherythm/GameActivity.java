@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 
 
@@ -30,6 +31,8 @@ public class GameActivity extends Activity implements Observer{
 	MediaPlayer mMediaPlayer3 = new MediaPlayer();
 	AnimationDrawable danceAnimation;	
 	ArrayList<ImageView> push;
+	ImageView back;
+	TextView scoreView;
 	int score;
 	Controller controlleur;
 	int timeout1=0;
@@ -53,7 +56,6 @@ public class GameActivity extends Activity implements Observer{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		Log.i(TAG, "start GameActivity");
-
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);	
 		configSound();
@@ -75,6 +77,10 @@ public class GameActivity extends Activity implements Observer{
 		push.add((ImageView) findViewById(R.id.push4));
 		push.add((ImageView) findViewById(R.id.push5));
 		
+		// Initialisation du boutton retour
+		back = (ImageView) findViewById(R.id.buttonBack);
+		back.setOnClickListener(backHandler);
+		
 		//Intialisation du controlleur
 		Log.i(TAG, "ajout de l'observateur");
 		Model m = Factory.getInstance().getModel();
@@ -88,12 +94,19 @@ public class GameActivity extends Activity implements Observer{
 		//affectation des listeners
 		for(int i=0; i<push.size(); i++)
 			push.get(i).setOnClickListener(pushBouton);
+
 		controlleur.startGameAction();
 		
 		myHandler = new Handler();
 	    myHandler.postDelayed(myRunnable,2000); 
-        
-	
+
+		//Initialisation du score 
+		scoreView = (TextView) findViewById(R.id.scoreView);
+		
+		//création des timeout
+		//timeout1 = new Timer();
+		controlleur.startGameAction();
+
 		}
 	
 	public void onPause() {
@@ -132,6 +145,16 @@ public class GameActivity extends Activity implements Observer{
 	}
 
 		
+	OnClickListener backHandler = new OnClickListener() {
+		@Override
+		public void onClick(View buttonBack) {
+			// TODO Auto-generated method stub
+			Log.i(TAG, "onClick button back");
+			finActivity();
+			GameActivity.this.finish();
+		}
+	};
+	
 	@Override
 	public void onWindowFocusChanged (boolean hasFocus) {
 		super.onWindowFocusChanged(hasFocus);
@@ -146,6 +169,7 @@ public class GameActivity extends Activity implements Observer{
 		public void onClick(View boutonPushed) {
 			// TODO Auto-generated method stub
 			Log.i(TAG, "onClick button");
+
 			for(int i=0; i< push.size(); i++){
 				//Je cherche la correpondance du bouton cliqué dans la liste des views
 				if(boutonPushed.getId() == push.get(i).getId())
@@ -159,20 +183,11 @@ public class GameActivity extends Activity implements Observer{
 						
 					}
 				myHandler.postDelayed(myRunnable,2000);
-				break;
-			
-				}
-				
+				break;			
+				}				
 			}
-			
-					
-		
-
-		
 	};
-	
 
-	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -183,6 +198,7 @@ public class GameActivity extends Activity implements Observer{
 	@Override
 	public void update(Model model) {
 		Log.i(TAG, "update");
+		scoreView.setText("Score : "+model.getScore());
 		updatePush(model);
 		updateSound(model);
 		updateGraphic(model);
@@ -226,6 +242,20 @@ public class GameActivity extends Activity implements Observer{
             	im.setImageResource(R.drawable.button_red);
             }
         }, 2000);
+	}
+	
+	protected void finActivity() {
+		controlleur = null;
+		mMediaPlayer2.stop();
+		/*background = null;
+		mMediaPlayer = null;
+		mMediaPlayer2 = null;
+		mMediaPlayer3 = null;
+		danceAnimation = null;	
+		push = null;
+		back = null;
+		score = 0;
+		timeout1 = null;*/	
 	}
 
 }

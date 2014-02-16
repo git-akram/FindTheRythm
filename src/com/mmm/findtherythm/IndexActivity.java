@@ -42,7 +42,7 @@ public class IndexActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			Intent intent = new Intent(IndexActivity.this, GameActivity.class);
-			startActivity(intent);
+			startActivityForResult(intent,0);
 		}
 		
 	};
@@ -59,7 +59,7 @@ public class IndexActivity extends Activity {
 	OnClickListener buttonQuitHandler = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			System.exit(0);
+			IndexActivity.this.finish();
 		}	
 	};
 
