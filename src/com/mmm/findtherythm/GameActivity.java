@@ -158,7 +158,10 @@ public class GameActivity extends Activity implements Observer{
 	private void updateSound(Model model) {
 		// TODO Auto-generated method stub
 	
-		
+		if (model.getMove())
+			mMediaPlayer3.start();
+		else
+			mMediaPlayer.start();
 	}
 
 	private void updatePush(Model model) {
