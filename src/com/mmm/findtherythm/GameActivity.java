@@ -168,14 +168,23 @@ public class GameActivity extends Activity implements Observer{
 		ArrayList<ButtonRythm> listBouton= model.getButtonRythm();
 		for(int i=0; i<listBouton.size(); i++){
 			Log.i(TAG, "push("+i+") = "+listBouton.get(i).getState());
-			if(listBouton.get(i).getState() == true)
+			if(listBouton.get(i).getState() == true){
 				push.get(i).setImageResource(R.drawable.button_green);
+				autochange(push.get(i));}
 				//push.get(i).setBackgroundResource(R.drawable.button_green);
 			else
 				push.get(i).setImageResource(R.drawable.button_red);
 				//push.get(i).setBackgroundResource(R.drawable.button_red);
 		}
 		score = model.getScore();
+	}
+	
+	public void autochange(final ImageView im){
+        im.postDelayed(new Runnable() {
+            public void run() {
+            	im.setImageResource(R.drawable.button_red);
+            }
+        }, 2000);
 	}
 
 }
