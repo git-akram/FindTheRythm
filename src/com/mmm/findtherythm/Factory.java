@@ -5,6 +5,8 @@ import com.mmm.findtherythm.model.Model;
 
 public class Factory {
 	Model model;
+	
+	
 	Controller controlleur;
 	private static volatile Factory instance = null;
 	private  Factory() {
