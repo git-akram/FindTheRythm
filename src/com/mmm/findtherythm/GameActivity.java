@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 public class GameActivity extends Activity implements Observer{
 	private static final String TAG = "GameActivity";
@@ -94,17 +95,16 @@ public class GameActivity extends Activity implements Observer{
 		Log.i(TAG, "update");
 		ArrayList<ButtonRythm> listBouton= model.getButtonRythm();
 			for(int i=0; i<listBouton.size(); i++){
-				if(listBouton.get(1).getState() == true)
+				if(listBouton.get(i).getState() == true)
 					push.get(i).setBackgroundResource(R.drawable.button_green);
 				else
 					push.get(i).setBackgroundResource(R.drawable.button_green);
 			}
-		
 		score = model.getScore();
-		View view = findViewById(R.layout.activity_game);
+		View view = (RelativeLayout) findViewById(R.id.layoutGame);
 		view.invalidate();
 		view.refreshDrawableState();
-		
+		Log.i(TAG, "fin update");
 	}
 
 }
