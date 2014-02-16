@@ -16,11 +16,11 @@ public class Model implements Observable{
 	
 	public void startPartie() {
 		this.buttonRythmList = new ArrayList<ButtonRythm>();
-		ButtonRythm buttonRythm1 = new ButtonRythm(1);
-		ButtonRythm buttonRythm2 = new ButtonRythm(2);
-		ButtonRythm buttonRythm3 = new ButtonRythm(3);
-		ButtonRythm buttonRythm4 = new ButtonRythm(4);
-		ButtonRythm buttonRythm5 = new ButtonRythm(5);
+		ButtonRythm buttonRythm1 = new ButtonRythm(0);
+		ButtonRythm buttonRythm2 = new ButtonRythm(1);
+		ButtonRythm buttonRythm3 = new ButtonRythm(2);
+		ButtonRythm buttonRythm4 = new ButtonRythm(3);
+		ButtonRythm buttonRythm5 = new ButtonRythm(4);
 		this.buttonRythmList.add(buttonRythm1);
 		this.buttonRythmList.add(buttonRythm2);
 		this.buttonRythmList.add(buttonRythm3);
