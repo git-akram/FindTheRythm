@@ -92,9 +92,9 @@ public class Model implements Observable{
 		
 		for(ButtonRythm buttonRythm : buttonRythmList) {
 			if(buttonRythm.getId() == rand)
-				buttonRythm.disable();
-			else
 				buttonRythm.enable();
+			else
+				buttonRythm.disable();
 		}
 	}
 	

@@ -86,25 +86,35 @@ public class GameActivity extends Activity implements Observer{
 
 	@Override
 	public void update(Model model) {
-		
-		// TODO Auto-generated method stub
-		//parcours la liste des bouton 
-		//si le bouton est true faire l'image success
-		//si le bouton est false faire l'image failed
-		// recharger le score
 		Log.i(TAG, "update");
-		ArrayList<ButtonRythm> listBouton= model.getButtonRythm();
-			for(int i=0; i<listBouton.size(); i++){
-				if(listBouton.get(i).getState() == true)
-					push.get(i).setBackgroundResource(R.drawable.button_green);
-				else
-					push.get(i).setBackgroundResource(R.drawable.button_green);
-			}
-		score = model.getScore();
-		View view = (RelativeLayout) findViewById(R.id.layoutGame);
-		view.invalidate();
-		view.refreshDrawableState();
+		updatePush(model);
+		updateSound(model);
+		updateGraphic(model);
 		Log.i(TAG, "fin update");
+	}
+	
+	private void updateGraphic(Model model) {
+		
+		
+	}
+
+	private void updateSound(Model model) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void updatePush(Model model) {
+		ArrayList<ButtonRythm> listBouton= model.getButtonRythm();
+		for(int i=0; i<listBouton.size(); i++){
+			Log.i(TAG, "push("+i+") = "+listBouton.get(i).getState());
+			if(listBouton.get(i).getState() == true)
+				push.get(i).setImageResource(R.drawable.button_green);
+				//push.get(i).setBackgroundResource(R.drawable.button_green);
+			else
+				push.get(i).setImageResource(R.drawable.button_red);
+				//push.get(i).setBackgroundResource(R.drawable.button_red);
+		}
+		score = model.getScore();
 	}
 
 }
