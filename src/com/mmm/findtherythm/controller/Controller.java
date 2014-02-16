@@ -27,7 +27,6 @@ public class Controller {
 	}
 
 	public void startGameAction() {
-		
 		model.startPartie();
 	}
 		

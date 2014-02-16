@@ -6,15 +6,10 @@ package com.mmm.findtherythm;
 
 import java.util.ArrayList;
 import java.util.Timer;
-import java.util.TimerTask;
-import java.util.logging.Logger;
-
 import com.mmm.findtherythm.controller.Controller;
 import com.mmm.findtherythm.model.ButtonRythm;
 import com.mmm.findtherythm.model.Model;
 import com.mmm.findtherythm.model.Observer;
-import com.mmm.findtherythm.view.AnimationView;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
@@ -29,16 +24,13 @@ public class GameActivity extends Activity implements Observer{
 	ArrayList<ImageView> push;
 	int score;
 	Controller controlleur;
-	Timer timeout1; 
+	Timer timeout1;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		Log.i(TAG, "start GameActivity");
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
-		
-		/*AnimationView view = new AnimationView(this); 
-		setContentView(view);*/
 		
 		//création des boutons
 		Log.i(TAG, "création des boutons");
