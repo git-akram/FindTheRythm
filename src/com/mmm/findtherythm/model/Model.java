@@ -4,14 +4,10 @@ import java.util.ArrayList;
 
 import android.util.Log;
 
-import com.mmm.findtherythm.services.Graphic;
-import com.mmm.findtherythm.services.Sound;
-
 public class Model implements Observable{
 	private int score;
 	private ArrayList<ButtonRythm> buttonRythmList;
-	private Graphic graphic;
-	private Sound sound;
+	private boolean move;
 	private ArrayList<Observer> listObserver = new ArrayList<Observer>();
 	private static final String TAG = "Model";
 	public Model() {
@@ -32,8 +28,6 @@ public class Model implements Observable{
 		this.buttonRythmList.add(buttonRythm5);
 		activateButtonRandomly(0);
 		this.score = 0;
-		this.graphic = new Graphic();
-		this.sound = new Sound();
 		notifyObserver();
 	}
 	
@@ -50,21 +44,16 @@ public class Model implements Observable{
 		return buttonRythmList;
 	}
 
-	public Graphic getGraphic() {
-		return graphic;
-	}
-
-	public Sound getSound() {
-		return sound;
+	public boolean getMove() {
+		return move;
 	}
 	
-	private void setFalseMoveImage() {
-		graphic.setFalseImage();
-		notifyObserver();
+	private void setFalseMove() {
+		move = false;
 	}
 	
-	private void setBackgroundImage() {
-		graphic.setBackgroundImage();
+	private void setRightMove() {
+		move = true;
 	}
 	
 	private void nextButton() {
@@ -110,10 +99,11 @@ public class Model implements Observable{
 		Log.i(TAG, "nextMove");
 		if(move) {
 			addScore();
+			setRightMove();
 		}
 		else {
 			deductScore();
-			setFalseMoveImage();
+			setFalseMove();
 		}
 		nextButton();
 		
