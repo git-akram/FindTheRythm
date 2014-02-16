@@ -9,6 +9,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Movie;
 import android.os.SystemClock;
+import android.util.AttributeSet;
 import android.view.View;
 
 public class AnimationView extends View{
@@ -19,7 +20,7 @@ public class AnimationView extends View{
 	
 	public AnimationView(Context context) {
 		super(context);
-		myStream = context.getResources().openRawResource(R.drawable.dance);
+		//myStream = context.getResources().openRawResource(R.drawable.dancing);
 		myMovie=Movie.decodeStream(myStream);
 	}
 	

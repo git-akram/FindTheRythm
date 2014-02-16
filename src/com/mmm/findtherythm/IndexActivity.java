@@ -2,6 +2,8 @@ package com.mmm.findtherythm;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -17,10 +19,12 @@ public class IndexActivity extends Activity {
 		// Component declaration
 		Button buttonJouer = (Button) findViewById(R.id.buttonJouer);
 		Button buttonScore = (Button) findViewById(R.id.buttonScore);
+		Button buttonQuit = (Button) findViewById(R.id.buttonQuit);
 		
 		// Handler declaration
 		buttonJouer.setOnClickListener(buttonJouerHandler);
 		buttonScore.setOnClickListener(buttonScoreHandler);
+		buttonQuit.setOnClickListener(buttonQuitHandler);
 		
 	}
 	
@@ -28,7 +32,8 @@ public class IndexActivity extends Activity {
 
 		@Override
 		public void onClick(View v) {
-			setContentView(R.layout.activity_game);	
+			Intent intent = new Intent(IndexActivity.this, GameActivity.class);
+			startActivity(intent);
 		}
 		
 	};
@@ -37,10 +42,16 @@ public class IndexActivity extends Activity {
 
 		@Override
 		public void onClick(View v) {
-			// TODO Redirect to Score Layout
-			
+			// TODO Redirect to Score Layout	
 		}
 		
+	};
+	
+	OnClickListener buttonQuitHandler = new OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			System.exit(0);
+		}	
 	};
 
 	@Override

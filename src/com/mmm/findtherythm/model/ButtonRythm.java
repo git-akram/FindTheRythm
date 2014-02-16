@@ -1,10 +1,5 @@
 package com.mmm.findtherythm.model;
 
-import com.mmm.findtherythm.R;
-
-import android.graphics.drawable.Drawable;
-import android.webkit.WebView.FindListener;
-
 public class ButtonRythm {
 	int id;
 	boolean state; 
