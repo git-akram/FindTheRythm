@@ -5,17 +5,24 @@ import com.mmm.findtherythm.model.Model;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.view.View.OnClickListener;
 
 public class IndexActivity extends Activity {
-
+	private static final String TAG = "IndexActivit";
+	GameActivity gameActivity;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_index);
+		
+		
+		Log.i(TAG, "init index activity");
+		
 		// Component declaration
 		Button buttonJouer = (Button) findViewById(R.id.buttonJouer);
 		Button buttonScore = (Button) findViewById(R.id.buttonScore);
@@ -32,7 +39,9 @@ public class IndexActivity extends Activity {
 
 		@Override
 		public void onClick(View v) {
-			setContentView(R.layout.activity_game);	
+			//setContentView(R.layout.activity_game);	
+			Intent intent = new Intent(IndexActivity.this, GameActivity.class);
+			startActivity(intent);
 			
 		}
 		

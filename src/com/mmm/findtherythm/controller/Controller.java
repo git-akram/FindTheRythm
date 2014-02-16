@@ -1,20 +1,24 @@
 package com.mmm.findtherythm.controller;
 
+import android.util.Log;
+
 import com.mmm.findtherythm.model.Model;
 
 public class Controller {
 
 	Model model;
-	
+	private static final String TAG = "Controlleur";
 	public Controller(Model model) {
 		this.model = model;
 	}
 	
 	public void clickSuccessAction() {
+		Log.i(TAG, "clickSuccessAction");
 		model.nextMove(true);
 	}
 	
 	public void clickFailAction() {
+		Log.i(TAG, "clickFailAction");
 		model.nextMove(false);
 	}
 	

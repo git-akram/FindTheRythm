@@ -7,6 +7,7 @@ package com.mmm.findtherythm;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Logger;
 
 import com.mmm.findtherythm.controller.Controller;
 import com.mmm.findtherythm.model.ButtonRythm;
@@ -16,12 +17,14 @@ import com.mmm.findtherythm.view.AnimationView;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 
 public class GameActivity extends Activity implements Observer{
+	private static final String TAG = "GameActivity";
 	
 	ArrayList<ImageView> push;
 	int score;
@@ -29,16 +32,17 @@ public class GameActivity extends Activity implements Observer{
 	Timer timeout1; 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		System.out.println("createGame");
+		Log.i(TAG, "start GameActivity");
+
 		super.onCreate(savedInstanceState);
-		//setContentView(R.layout.activity_game);
+		setContentView(R.layout.activity_game);
 		
-		AnimationView view = new AnimationView(this); 
-		setContentView(view);
+		/*AnimationView view = new AnimationView(this); 
+		setContentView(view);*/
 		
 		//création des boutons
+		Log.i(TAG, "création des boutons");
 		push= new ArrayList<ImageView>();
-		
 		push.add((ImageView) findViewById(R.id.push1));
 		push.add((ImageView) findViewById(R.id.push2));
 		push.add((ImageView) findViewById(R.id.push3));
@@ -46,20 +50,22 @@ public class GameActivity extends Activity implements Observer{
 		push.add((ImageView) findViewById(R.id.push5));
 		
 		//Intialisation du controlleur
+		Log.i(TAG, "ajout de l'observateur");
 		Factory.getInstance().getModel().addObserver(this);
+		Log.i(TAG, "ajout du controlleur");
 		controlleur = Factory.getInstance().getController();
-		
-		
-		
+		if(controlleur == null)
+			Log.i(TAG, "controlleur null");
 		//affectation des listeners
 		for(int i=0; i<push.size(); i++)
 			push.get(i).setOnClickListener(pushBouton);
 		//Initialisation du score 
-		score = 0;
+		//score = 0;
 		
 		//création des timeout
 		//timeout1 = new Timer();
-		Factory.getInstance().getController().startGameAction();
+		//Factory.getInstance().getController().startGameAction();
+		
 	}
 
 	OnClickListener pushBouton = new OnClickListener() {
@@ -67,21 +73,13 @@ public class GameActivity extends Activity implements Observer{
 		@Override
 		public void onClick(View push) {
 			// TODO Auto-generated method stub
-			System.out.println("click");
+			Log.i(TAG, "onClick button");
 			controlleur.clickSuccessAction();
 		}
 		
 	};
 	
 	
-	
-	private void jouer()
-	{
-		while(true)
-		{
-			
-		}
-	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -107,7 +105,9 @@ public class GameActivity extends Activity implements Observer{
 			}
 		
 		score = model.getScore();
-				
+		View view = findViewById(R.layout.activity_game);
+		view.invalidate();
+		view.refreshDrawableState();
 		
 	}
 

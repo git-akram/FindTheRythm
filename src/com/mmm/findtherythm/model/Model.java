@@ -2,6 +2,8 @@ package com.mmm.findtherythm.model;
 
 import java.util.ArrayList;
 
+import android.util.Log;
+
 import com.mmm.findtherythm.services.Graphic;
 import com.mmm.findtherythm.services.Sound;
 
@@ -11,7 +13,7 @@ public class Model implements Observable{
 	private Graphic graphic;
 	private Sound sound;
 	private ArrayList<Observer> listObserver = new ArrayList<Observer>();
-	
+	private static final String TAG = "Model";
 	public Model() {
 		
 	}
@@ -97,6 +99,7 @@ public class Model implements Observable{
 	}
 	
 	public void nextMove(boolean move) {
+		Log.i(TAG, "nextMove");
 		if(move) {
 			addScore();
 		}
@@ -122,5 +125,6 @@ public class Model implements Observable{
 	public void notifyObserver() {
 		for(Observer obs : listObserver)
 		      obs.update(this);
+		Log.i(TAG, "End of listObserver notify");
 	}
 }
