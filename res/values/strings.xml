@@ -10,5 +10,8 @@
     <string name="Index_title">Menu</string>
     <string name="Score_title">Best Scores</string>
     <string name="Pause">Pause</string>
+    <string name="Back">Retour</string>
+    <string name="Quit">Quitter</string>
+
 
 </resources>

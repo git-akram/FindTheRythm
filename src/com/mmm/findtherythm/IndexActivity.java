@@ -1,92 +1,67 @@
 package com.mmm.findtherythm;
 
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
+import com.mmm.findtherythm.controller.Controller;
+import com.mmm.findtherythm.model.Model;
+
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.view.View.OnClickListener;
 
-
 public class IndexActivity extends Activity {
-	
-	MediaPlayer mMediaPlayer = new MediaPlayer();
-	MediaPlayer mMediaPlayer2 = new MediaPlayer();
-
+	private static final String TAG = "IndexActivit";
+	GameActivity gameActivity;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_index);
-	
-
+		
+		
+		Log.i(TAG, "init index activity");
+		
 		// Component declaration
 		Button buttonJouer = (Button) findViewById(R.id.buttonJouer);
 		Button buttonScore = (Button) findViewById(R.id.buttonScore);
-
-		mMediaPlayer2 = MediaPlayer.create(this, R.raw.sound1);
-		mMediaPlayer2.setAudioStreamType(AudioManager.STREAM_MUSIC);
-		mMediaPlayer2.setLooping(true);	
-		Button btn = (Button) findViewById(R.id.button1);
+		Button buttonQuit = (Button) findViewById(R.id.buttonQuit);
 		
 		// Handler declaration
 		buttonJouer.setOnClickListener(buttonJouerHandler);
 		buttonScore.setOnClickListener(buttonScoreHandler);
-	    btn.setOnClickListener(buttonHandler); 
+		buttonQuit.setOnClickListener(buttonQuitHandler);
 		
-		
-
-
 	}
 	
-	OnClickListener buttonHandler = new OnClickListener() {
-		@Override
-        public void onClick(View v) {
-        	//RelativeLayout rl = (RelativeLayout) findViewById(R.id.relativeLayoutid);
-        	//rl.setBackgroundResource(R.drawable.op2);
-        	 /*  Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-               Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
-               r.play();*/
-			mMediaPlayer.start();
-			
-        	
-        }
-	};
+	
 
 	OnClickListener buttonJouerHandler = new OnClickListener() {
 
 		@Override
 		public void onClick(View v) {
-			//setContentView(R.layout.activity_game);	
 			Intent intent = new Intent(IndexActivity.this, GameActivity.class);
 			startActivity(intent);
-			
-			//mMediaPlayer2.start();
 		}
-
+		
 	};
-
+	
 	OnClickListener buttonScoreHandler = new OnClickListener() {
 
 		@Override
 		public void onClick(View v) {
-			// TODO Redirect to Score Layout
-
+			// TODO Redirect to Score Layout	
 		}
-
+		
 	};
 	
-
-
-
-	
-		
+	OnClickListener buttonQuitHandler = new OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			System.exit(0);
+		}	
+	};
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
