@@ -33,4 +33,9 @@ public class Factory {
 	{
 		return model;
 	}
+	
+	public void destroy() {
+		model = null;
+		controlleur = null;
+	}
 }
