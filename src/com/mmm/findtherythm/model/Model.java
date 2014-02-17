@@ -7,7 +7,7 @@ import android.util.Log;
 public class Model implements Observable{
 	private int score;
 	private ArrayList<ButtonRythm> buttonRythmList;
-	private boolean move;
+	private String move;
 	private ArrayList<Observer> listObserver = new ArrayList<Observer>();
 	private static final String TAG = "Model";
 	public Model() {
@@ -27,6 +27,7 @@ public class Model implements Observable{
 		this.buttonRythmList.add(buttonRythm4);
 		this.buttonRythmList.add(buttonRythm5);
 		activateButtonRandomly(0);
+		this.move = "start";
 		this.score = 0;
 		notifyObserver();
 	}
@@ -44,16 +45,16 @@ public class Model implements Observable{
 		return buttonRythmList;
 	}
 
-	public boolean getMove() {
+	public String getMove() {
 		return move;
 	}
 	
 	private void setFalseMove() {
-		move = false;
+		move = "wrong";
 	}
 	
 	private void setRightMove() {
-		move = true;
+		move = "right";
 	}
 	
 	private void nextButton() {

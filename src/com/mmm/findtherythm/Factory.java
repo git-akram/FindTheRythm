@@ -10,7 +10,7 @@ public class Factory {
 	Controller controlleur;
 	private static volatile Factory instance = null;
 	private  Factory() {
-		 model = new Model();
+		model = new Model();
 		controlleur = new Controller(model);
 		
 	}
@@ -34,8 +34,13 @@ public class Factory {
 		return model;
 	}
 	
+	public void removeObserver() {
+		model.removeObserver();
+	}
+	
 	public void destroy() {
 		model = null;
 		controlleur = null;
+		instance = null;
 	}
 }

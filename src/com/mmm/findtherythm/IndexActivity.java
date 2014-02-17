@@ -32,7 +32,6 @@ public class IndexActivity extends Activity {
 		buttonJouer.setOnClickListener(buttonJouerHandler);
 		buttonScore.setOnClickListener(buttonScoreHandler);
 		buttonQuit.setOnClickListener(buttonQuitHandler);
-		
 	}
 	
 	
@@ -41,6 +40,7 @@ public class IndexActivity extends Activity {
 
 		@Override
 		public void onClick(View v) {
+			Model m = Factory.getInstance().getModel();
 			Intent intent = new Intent(IndexActivity.this, GameActivity.class);
 			startActivityForResult(intent,0);
 		}

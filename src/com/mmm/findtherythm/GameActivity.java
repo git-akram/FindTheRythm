@@ -7,6 +7,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -33,6 +34,15 @@ public class GameActivity extends Activity implements Observer{
 	int score;
 	Controller controlleur;
 	Timer timeout1;
+	private Handler myHandler;
+	private Runnable myRunnable = new Runnable() {
+		@Override
+		public void run() {
+			// Code à éxécuter de façon périodique
+			controlleur.clickFailAction();
+			myHandler.postDelayed(this,2000);
+		}
+	};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +91,10 @@ public class GameActivity extends Activity implements Observer{
 		//création des timeout
 		//timeout1 = new Timer();
 		controlleur.startGameAction();
-		}
+		
+		myHandler = new Handler();
+		myHandler.postDelayed(myRunnable,2000); 
+	}
 		
 	public void oppaDance(){
 		final RelativeLayout rl = (RelativeLayout) findViewById(R.id.layoutGame);
@@ -111,12 +124,15 @@ public class GameActivity extends Activity implements Observer{
 		mMediaPlayer2.setLooping(true);
 		mMediaPlayer.setVolume(20, 20);
 	}
+
 		
 	OnClickListener backHandler = new OnClickListener() {
 		@Override
 		public void onClick(View buttonBack) {
 			// TODO Auto-generated method stub
 			Log.i(TAG, "onClick button back");
+			//Factory.getInstance().removeObserver();
+			Factory.getInstance().destroy();
 			finActivity();
 			GameActivity.this.finish();
 		}
@@ -164,14 +180,15 @@ public class GameActivity extends Activity implements Observer{
 
 	private void updateSound(Model model) {
 		// TODO Auto-generated method stub
-	
-		if (model.getMove())
+		if (model.getMove().equals("right"))
 			mMediaPlayer3.start();
-		else
+		else if (model.getMove().equals("wrong"))
 			mMediaPlayer.start();
 	}
 
 	private void updatePush(Model model) {
+		//myHandler.removeCallbacks(myRunnable);
+		//myHandler.postDelayed(myRunnable, 2000);
 		ArrayList<ButtonRythm> listBouton= model.getButtonRythm();
 		for(int i=0; i<listBouton.size(); i++){
 			Log.i(TAG, "push("+i+") = "+listBouton.get(i).getState());
@@ -188,12 +205,13 @@ public class GameActivity extends Activity implements Observer{
 	protected void finActivity() {
 		controlleur = null;
 		mMediaPlayer2.stop();
-		/*background = null;
+		pushBouton = null;
+		/*push = null;
+		background = null;
 		mMediaPlayer = null;
 		mMediaPlayer2 = null;
 		mMediaPlayer3 = null;
 		danceAnimation = null;	
-		push = null;
 		back = null;
 		score = 0;
 		timeout1 = null;*/	
