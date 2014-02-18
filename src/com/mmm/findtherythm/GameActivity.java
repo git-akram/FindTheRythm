@@ -22,24 +22,26 @@ import com.mmm.findtherythm.model.Model;
 import com.mmm.findtherythm.model.Observer;
 
 public class GameActivity extends Activity implements Observer{
+	
 	private static final String TAG = "GameActivity";
+	
 	private ImageView background;
-	MediaPlayer mMediaPlayer = new MediaPlayer();
-	MediaPlayer mMediaPlayer2 = new MediaPlayer();
-	MediaPlayer mMediaPlayer3 = new MediaPlayer();
-	AnimationDrawable danceAnimation;	
-	ArrayList<ImageView> push;
-	ImageView back;
-	TextView scoreView;
-	int score;
-	Controller controlleur;
-	Timer timeout1;
+	private MediaPlayer mMediaPlayer = new MediaPlayer();
+	private MediaPlayer mMediaPlayer2 = new MediaPlayer();
+	private MediaPlayer mMediaPlayer3 = new MediaPlayer();
+	private AnimationDrawable danceAnimation;	
+	private ArrayList<ImageView> push;
+	private ImageView back;
+	private TextView scoreView;
+	private int score;
+	//private Controller controlleur;
+	private ButtonRythm enable_button;
 	private Handler myHandler;
 	private Runnable myRunnable = new Runnable() {
 		@Override
 		public void run() {
 			// Code à éxécuter de façon périodique
-			controlleur.clickFailAction();
+			Factory.getInstance().getController().clickFailAction();
 			myHandler.postDelayed(this,2000);
 		}
 	};
@@ -51,7 +53,6 @@ public class GameActivity extends Activity implements Observer{
 		setContentView(R.layout.activity_game);	
 		configSound();
 		mMediaPlayer2.start();
-    	//oppaDance();
 		
 		background = (ImageView) findViewById(R.id.background);
 		background.setBackgroundResource(R.drawable.dance_animation);
@@ -76,27 +77,21 @@ public class GameActivity extends Activity implements Observer{
 		Log.i(TAG, "ajout de l'observateur");
 		Model m = Factory.getInstance().getModel();
 		m.addObserver(this);
-		
-		
-		Log.i(TAG, "ajout du controlleur");
-		controlleur = Factory.getInstance().getController();
-		if(controlleur == null)
-			Log.i(TAG, "controlleur null");
+
 		//affectation des listeners
 		for(int i=0; i<push.size(); i++)
 			push.get(i).setOnClickListener(pushBouton);
+		
 		//Initialisation du score 
 		scoreView = (TextView) findViewById(R.id.scoreView);
 		
-		//création des timeout
-		//timeout1 = new Timer();
-		controlleur.startGameAction();
+		Factory.getInstance().getController().startGameAction();
 		
 		myHandler = new Handler();
 		myHandler.postDelayed(myRunnable,2000); 
 	}
 		
-	public void oppaDance(){
+	public void oppaDance() {
 		final RelativeLayout rl = (RelativeLayout) findViewById(R.id.layoutGame);
         rl.postDelayed(new Runnable() {
             int i = 0;
@@ -110,7 +105,7 @@ public class GameActivity extends Activity implements Observer{
         }, 500);
 	}
 	
-	public void configSound(){
+	public void configSound() {
 		mMediaPlayer = MediaPlayer.create(this, R.raw.error);
 		mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 		mMediaPlayer.setLooping(false);
@@ -129,9 +124,7 @@ public class GameActivity extends Activity implements Observer{
 	OnClickListener backHandler = new OnClickListener() {
 		@Override
 		public void onClick(View buttonBack) {
-			// TODO Auto-generated method stub
 			Log.i(TAG, "onClick button back");
-			//Factory.getInstance().removeObserver();
 			Factory.getInstance().destroy();
 			finActivity();
 			GameActivity.this.finish();
@@ -149,10 +142,24 @@ public class GameActivity extends Activity implements Observer{
 	OnClickListener pushBouton = new OnClickListener() {
 	
 		@Override
-		public void onClick(View push) {
-			// TODO Auto-generated method stub
+		public void onClick(View boutonPushed) {
 			Log.i(TAG, "onClick button");
-			controlleur.clickSuccessAction();
+			myHandler.removeCallbacks(myRunnable);
+			myHandler.postDelayed(myRunnable, 2000);
+			for(int i=0; i< push.size(); i++){
+				Log.i(TAG, "for : "+boutonPushed.getId()+" | "+push.get(i).getId());
+				//Je cherche la correpondance du bouton cliqué dans la liste des views
+				if(boutonPushed.getId() == push.get(i).getId()) {
+					Log.i(TAG, "enable : "+enable_button.getId());
+					//si on clique sur le bon bouton
+					if(i == enable_button.getId()){
+						Factory.getInstance().getController().clickSuccessAction();
+					}
+					else {
+						Factory.getInstance().getController().clickFailAction();
+					}
+				}	
+			}	
 		}
 	};
 	
@@ -169,13 +176,7 @@ public class GameActivity extends Activity implements Observer{
 		scoreView.setText("Score : "+model.getScore());
 		updatePush(model);
 		updateSound(model);
-		updateGraphic(model);
 		Log.i(TAG, "fin update");
-	}
-	
-	private void updateGraphic(Model model) {
-		
-		
 	}
 
 	private void updateSound(Model model) {
@@ -187,34 +188,24 @@ public class GameActivity extends Activity implements Observer{
 	}
 
 	private void updatePush(Model model) {
-		//myHandler.removeCallbacks(myRunnable);
-		//myHandler.postDelayed(myRunnable, 2000);
 		ArrayList<ButtonRythm> listBouton= model.getButtonRythm();
 		for(int i=0; i<listBouton.size(); i++){
 			Log.i(TAG, "push("+i+") = "+listBouton.get(i).getState());
-			if(listBouton.get(i).getState() == true)
+			if(listBouton.get(i).getState() == true) {
 				push.get(i).setImageResource(R.drawable.button_green);
-				//push.get(i).setBackgroundResource(R.drawable.button_green);
-			else
+				enable_button = listBouton.get(i);
+			}
+			else {
 				push.get(i).setImageResource(R.drawable.button_red);
-				//push.get(i).setBackgroundResource(R.drawable.button_red);
+			}
 		}
 		score = model.getScore();
 	}
 	
 	protected void finActivity() {
-		controlleur = null;
 		mMediaPlayer2.stop();
 		pushBouton = null;
-		/*push = null;
-		background = null;
-		mMediaPlayer = null;
-		mMediaPlayer2 = null;
-		mMediaPlayer3 = null;
-		danceAnimation = null;	
-		back = null;
-		score = 0;
-		timeout1 = null;*/	
+		myHandler.removeCallbacks(myRunnable);
 	}
 
 }

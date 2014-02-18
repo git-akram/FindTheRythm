@@ -10,9 +10,6 @@ public class Model implements Observable{
 	private String move;
 	private ArrayList<Observer> listObserver = new ArrayList<Observer>();
 	private static final String TAG = "Model";
-	public Model() {
-		
-	}
 	
 	public void startPartie() {
 		this.buttonRythmList = new ArrayList<ButtonRythm>();
@@ -93,7 +90,9 @@ public class Model implements Observable{
 	}
 	
 	private void deductScore() {
-		score = score - 100;
+		if(score >= 100) {
+			score = score - 100;
+		}
 	}
 	
 	public void nextMove(boolean move) {
@@ -127,8 +126,7 @@ public class Model implements Observable{
 		for(int i=0; i<listObserver.size(); i++){
 			Log.i(TAG, "notify observer"+i);
 			listObserver.get(i).update(this);
-		}
-		      
+		}      
 		Log.i(TAG, "End of listObserver notify");
 	}
 }

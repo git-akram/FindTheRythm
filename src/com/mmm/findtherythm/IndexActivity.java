@@ -1,8 +1,5 @@
 package com.mmm.findtherythm;
 
-import com.mmm.findtherythm.controller.Controller;
-import com.mmm.findtherythm.model.Model;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -19,8 +16,7 @@ public class IndexActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_index);
-		
-		
+
 		Log.i(TAG, "init index activity");
 		
 		// Component declaration
@@ -33,27 +29,21 @@ public class IndexActivity extends Activity {
 		buttonScore.setOnClickListener(buttonScoreHandler);
 		buttonQuit.setOnClickListener(buttonQuitHandler);
 	}
-	
-	
 
 	OnClickListener buttonJouerHandler = new OnClickListener() {
-
 		@Override
 		public void onClick(View v) {
-			Model m = Factory.getInstance().getModel();
+			Factory.getInstance();
 			Intent intent = new Intent(IndexActivity.this, GameActivity.class);
 			startActivityForResult(intent,0);
-		}
-		
+		}	
 	};
 	
 	OnClickListener buttonScoreHandler = new OnClickListener() {
-
 		@Override
 		public void onClick(View v) {
 			// TODO Redirect to Score Layout	
 		}
-		
 	};
 	
 	OnClickListener buttonQuitHandler = new OnClickListener() {
