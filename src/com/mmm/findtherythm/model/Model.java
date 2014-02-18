@@ -91,8 +91,7 @@ public class Model implements Observable{
 	
 	private void deductScore() {
 		if(score >= 100) {
-			score = score - 100;
-		}
+			score = score - 100;	}
 	}
 	
 	public void nextMove(boolean move) {
