@@ -123,7 +123,9 @@ public class GameActivity extends Activity implements Observer{
 		@Override
 		public void onClick(View buttonSave) {
 			Log.i(TAG, "onClick button save");
-			ScoreUtil.savePartie();
+			ScoreUtil.savePartie(name.getText().toString() , Factory.getInstance().getModel().getScore());
+			Factory.getInstance().destroy();
+			GameActivity.this.finish();
 		}
 	};	
 	

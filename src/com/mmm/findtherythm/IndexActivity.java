@@ -1,5 +1,9 @@
 package com.mmm.findtherythm;
 
+import java.util.HashMap;
+
+import com.mmm.findtherythm.utils.ScoreUtil;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -7,10 +11,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.view.View.OnClickListener;
 
 public class IndexActivity extends Activity {
-	private static final String TAG = "IndexActivit";
+	private static final String TAG = "IndexActivity";
 	GameActivity gameActivity;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +47,34 @@ public class IndexActivity extends Activity {
 	OnClickListener buttonScoreHandler = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			// TODO Redirect to Score Layout	
+			setContentView(R.layout.score);	
+			Log.i("Index Activity", "List score : "+ScoreUtil.getListScore().toString());
+			HashMap<String, Integer> map = ScoreUtil.getListScore();
+			int i = 0;
+			for (String mapKey : map.keySet()) {
+				i++;
+				if(i == 1) {
+					Log.i("Index Activity", "Populating view 1 : "+mapKey);
+					TextView name1 = (TextView) findViewById(R.id.name1);
+					name1.setText(mapKey);
+					TextView score1 = (TextView) findViewById(R.id.score1);
+					score1.setText(map.get(mapKey).intValue());
+				}
+				else if(i == 2) {
+					Log.i("Index Activity", "Populating view 2 : "+mapKey);
+					TextView name2 = (TextView) findViewById(R.id.name2);
+					name2.setText(mapKey);
+					TextView score2 = (TextView) findViewById(R.id.score2);
+					score2.setText(map.get(mapKey).intValue());
+				}
+				else if(i == 3) {
+					Log.i("Index Activity", "Populating view 3 : "+mapKey);
+					TextView name3 = (TextView) findViewById(R.id.name3);
+					name3.setText(mapKey);
+					TextView score3 = (TextView) findViewById(R.id.score3);
+					score3.setText(map.get(mapKey).intValue());
+				}	
+			}
 		}
 	};
 	
