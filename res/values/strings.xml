@@ -12,6 +12,8 @@
     <string name="Pause">Pause</string>
     <string name="Back">Retour</string>
     <string name="Quit">Quitter</string>
+    <string name="Save">Save</string>
+    <string name="Name_Hint">Enter your Name</string>
 
 
 </resources>

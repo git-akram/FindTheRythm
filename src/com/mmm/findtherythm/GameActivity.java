@@ -1,25 +1,26 @@
 package com.mmm.findtherythm;
 
 import java.util.ArrayList;
-import java.util.Timer;
 import android.app.Activity;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.mmm.findtherythm.controller.Controller;
 import com.mmm.findtherythm.model.ButtonRythm;
 import com.mmm.findtherythm.model.Model;
 import com.mmm.findtherythm.model.Observer;
+import com.mmm.findtherythm.utils.ScoreUtil;
 
 public class GameActivity extends Activity implements Observer{
 	
@@ -33,16 +34,17 @@ public class GameActivity extends Activity implements Observer{
 	private ArrayList<ImageView> push;
 	private ImageView back;
 	private TextView scoreView;
-	private int score;
-	//private Controller controlleur;
 	private ButtonRythm enable_button;
+	private EditText name;
+	private Button save;
+	private int delay = 800;
 	private Handler myHandler;
 	private Runnable myRunnable = new Runnable() {
 		@Override
 		public void run() {
 			// Code à éxécuter de façon périodique
 			Factory.getInstance().getController().clickFailAction();
-			myHandler.postDelayed(this,2000);
+			myHandler.postDelayed(this,delay);
 		}
 	};
 	
@@ -50,7 +52,7 @@ public class GameActivity extends Activity implements Observer{
 	protected void onCreate(Bundle savedInstanceState) {
 		Log.i(TAG, "start GameActivity");
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_game);	
+		setContentView(R.layout.activity_game);
 		configSound();
 		mMediaPlayer2.start();
 		
@@ -88,21 +90,7 @@ public class GameActivity extends Activity implements Observer{
 		Factory.getInstance().getController().startGameAction();
 		
 		myHandler = new Handler();
-		myHandler.postDelayed(myRunnable,2000); 
-	}
-		
-	public void oppaDance() {
-		final RelativeLayout rl = (RelativeLayout) findViewById(R.id.layoutGame);
-        rl.postDelayed(new Runnable() {
-            int i = 0;
-            public void run() {
-            	rl.setBackgroundResource(
-                    i++ % 2 == 0 ?
-                    		R.drawable.op2 :
-                    		R.drawable.op1);
-            	rl.postDelayed(this, 500);
-            }
-        }, 500);
+		myHandler.postDelayed(myRunnable,delay); 
 	}
 	
 	public void configSound() {
@@ -116,11 +104,29 @@ public class GameActivity extends Activity implements Observer{
 		mMediaPlayer3.setVolume(100, 100);
 		mMediaPlayer2 = MediaPlayer.create(this, R.raw.sound1);
 		mMediaPlayer2.setAudioStreamType(AudioManager.STREAM_MUSIC);
-		mMediaPlayer2.setLooping(true);
+		mMediaPlayer2.setLooping(false);
 		mMediaPlayer.setVolume(20, 20);
+		mMediaPlayer.setOnCompletionListener(new OnCompletionListener() {
+			@Override
+			public void onCompletion(MediaPlayer arg0) {
+				finActivity();
+				setContentView(R.layout.save);
+				// Initialisation Sauvegarde de partie
+				name = (EditText) findViewById(R.id.nameEditText);
+				save = (Button) findViewById(R.id.saveButton);
+				save.setOnClickListener(saveHandler);
+			}
+		});
 	}
 
-		
+	OnClickListener saveHandler = new OnClickListener() {
+		@Override
+		public void onClick(View buttonSave) {
+			Log.i(TAG, "onClick button save");
+			ScoreUtil.savePartie();
+		}
+	};	
+	
 	OnClickListener backHandler = new OnClickListener() {
 		@Override
 		public void onClick(View buttonBack) {
@@ -130,6 +136,14 @@ public class GameActivity extends Activity implements Observer{
 			GameActivity.this.finish();
 		}
 	};
+	/*
+	@Override
+	public void onBackPressed() {
+		Log.i(TAG, "back pressed");
+		Factory.getInstance().destroy();
+		finActivity();
+		GameActivity.this.finish();
+	}*/
 	
 	@Override
 	public void onWindowFocusChanged (boolean hasFocus) {
@@ -145,7 +159,7 @@ public class GameActivity extends Activity implements Observer{
 		public void onClick(View boutonPushed) {
 			Log.i(TAG, "onClick button");
 			myHandler.removeCallbacks(myRunnable);
-			myHandler.postDelayed(myRunnable, 2000);
+			myHandler.postDelayed(myRunnable, delay);
 			for(int i=0; i< push.size(); i++){
 				Log.i(TAG, "for : "+boutonPushed.getId()+" | "+push.get(i).getId());
 				//Je cherche la correpondance du bouton cliqué dans la liste des views
@@ -199,7 +213,7 @@ public class GameActivity extends Activity implements Observer{
 				push.get(i).setImageResource(R.drawable.button_red);
 			}
 		}
-		score = model.getScore();
+		model.getScore();
 	}
 	
 	protected void finActivity() {
