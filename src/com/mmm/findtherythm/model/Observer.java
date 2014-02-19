@@ -1,5 +1,5 @@
 package com.mmm.findtherythm.model;
 
-public class Observer {
-
+public interface Observer {
+	public void update(Model model);
 }
