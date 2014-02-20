@@ -48,7 +48,7 @@ public class GameActivity extends Activity implements Observer{
 			myHandler.postDelayed(this,delay);
 		}
 	};
-	CountDownTimer timer = new CountDownTimer(5000, 5000) {
+	CountDownTimer timer = new CountDownTimer(30000, 30000) {
 
 	    @Override
 	    public void onTick(long millisUntilFinished) {
