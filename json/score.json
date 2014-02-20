@@ -1,9 +1,0 @@
-{
-	scores: [
-			{name:"akram" , score:1000},
-			{name:"mehdi" , score:800},
-			{name:"amine" , score:900},
-			{name:"ismail" , score:500}
-			
-	]
-}
