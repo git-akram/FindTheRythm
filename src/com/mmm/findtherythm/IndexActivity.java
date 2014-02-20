@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
 
@@ -47,32 +48,36 @@ public class IndexActivity extends Activity {
 	OnClickListener buttonScoreHandler = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			setContentView(R.layout.score);	
-			Log.i("Index Activity", "List score : "+ScoreUtil.getListScore().toString());
+			setContentView(R.layout.score);
+			ImageView back = (ImageView) findViewById(R.id.backFromScore);
+			back.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					//setContentView(R.layout.activity_index);
+					startActivity(new Intent(IndexActivity.this , IndexActivity.class));
+				}
+			});
 			HashMap<String, Integer> map = ScoreUtil.getListScore();
 			int i = 0;
 			for (String mapKey : map.keySet()) {
 				i++;
 				if(i == 1) {
-					Log.i("Index Activity", "Populating view 1 : "+mapKey);
 					TextView name1 = (TextView) findViewById(R.id.name1);
 					name1.setText(mapKey);
 					TextView score1 = (TextView) findViewById(R.id.score1);
-					score1.setText(map.get(mapKey).intValue());
+					score1.setText(map.get(mapKey).toString());
 				}
 				else if(i == 2) {
-					Log.i("Index Activity", "Populating view 2 : "+mapKey);
 					TextView name2 = (TextView) findViewById(R.id.name2);
 					name2.setText(mapKey);
 					TextView score2 = (TextView) findViewById(R.id.score2);
-					score2.setText(map.get(mapKey).intValue());
+					score2.setText(map.get(mapKey).toString());
 				}
 				else if(i == 3) {
-					Log.i("Index Activity", "Populating view 3 : "+mapKey);
 					TextView name3 = (TextView) findViewById(R.id.name3);
 					name3.setText(mapKey);
 					TextView score3 = (TextView) findViewById(R.id.score3);
-					score3.setText(map.get(mapKey).intValue());
+					score3.setText(map.get(mapKey).toString());
 				}	
 			}
 		}
