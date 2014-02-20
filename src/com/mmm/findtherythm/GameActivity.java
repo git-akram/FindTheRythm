@@ -7,6 +7,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
@@ -46,6 +47,23 @@ public class GameActivity extends Activity implements Observer{
 			Factory.getInstance().getController().clickFailAction();
 			myHandler.postDelayed(this,delay);
 		}
+	};
+	CountDownTimer timer = new CountDownTimer(30000, 30000) {
+
+	    @Override
+	    public void onTick(long millisUntilFinished) {
+	       // Nothing to do
+	    }
+
+	    @Override
+	    public void onFinish() {
+	    	finActivity();
+			setContentView(R.layout.save);
+			// Initialisation Sauvegarde de partie
+			name = (EditText) findViewById(R.id.nameEditText);
+			save = (Button) findViewById(R.id.saveButton);
+			save.setOnClickListener(saveHandler);
+	    }
 	};
 	
 	@Override
@@ -91,6 +109,7 @@ public class GameActivity extends Activity implements Observer{
 		
 		myHandler = new Handler();
 		myHandler.postDelayed(myRunnable,delay); 
+		timer.start();
 	}
 	
 	public void configSound() {
@@ -104,26 +123,18 @@ public class GameActivity extends Activity implements Observer{
 		mMediaPlayer3.setVolume(100, 100);
 		mMediaPlayer2 = MediaPlayer.create(this, R.raw.sound1);
 		mMediaPlayer2.setAudioStreamType(AudioManager.STREAM_MUSIC);
-		mMediaPlayer2.setLooping(false);
-		mMediaPlayer.setVolume(20, 20);
-		mMediaPlayer.setOnCompletionListener(new OnCompletionListener() {
-			@Override
-			public void onCompletion(MediaPlayer arg0) {
-				finActivity();
-				setContentView(R.layout.save);
-				// Initialisation Sauvegarde de partie
-				name = (EditText) findViewById(R.id.nameEditText);
-				save = (Button) findViewById(R.id.saveButton);
-				save.setOnClickListener(saveHandler);
-			}
-		});
+		mMediaPlayer2.seekTo(5000);
+		mMediaPlayer2.setLooping(true);
+		mMediaPlayer.setVolume(30, 30);
 	}
 
 	OnClickListener saveHandler = new OnClickListener() {
 		@Override
 		public void onClick(View buttonSave) {
 			Log.i(TAG, "onClick button save");
-			ScoreUtil.savePartie();
+			ScoreUtil.savePartie(name.getText().toString() , Factory.getInstance().getModel().getScore());
+			Factory.getInstance().destroy();
+			GameActivity.this.finish();
 		}
 	};	
 	

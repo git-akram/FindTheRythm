@@ -18,6 +18,7 @@
         android:layout_marginLeft="32dp"
         android:layout_marginTop="135dp"
         android:text="@string/Jouer"
+        android:textColor="@android:color/white"
         android:textSize="25sp" />
 
     <TextView
@@ -43,6 +44,7 @@
         android:layout_below="@+id/buttonScore"
         android:layout_marginTop="30dp"
         android:text="@string/Quit"
+        android:textColor="@android:color/white"
         android:textSize="25sp" />
 
     <Button
@@ -53,6 +55,7 @@
         android:layout_below="@+id/buttonJouer"
         android:layout_marginTop="33dp"
         android:text="@string/Score"
+        android:textColor="@android:color/white"
         android:textSize="25sp" />
 
 </RelativeLayout>
